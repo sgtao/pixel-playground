@@ -1157,44 +1157,48 @@ Object.assign(Cpu.prototype, {
    */
   load: function (address) {
     address = address & 0xffff; // just in case
+    try {
 
-    // 0x0000 - 0x07FF: 2KB internal RAM
-    // 0x0800 - 0x1FFF: Mirrors of 0x0000 - 0x07FF (repeats every 0x800 bytes)
+      // 0x0000 - 0x07FF: 2KB internal RAM
+      // 0x0800 - 0x1FFF: Mirrors of 0x0000 - 0x07FF (repeats every 0x800 bytes)
 
-    if (address >= 0 && address < 0x2000)
-      return this.ram.load(address & 0x07ff);
+      if (address >= 0 && address < 0x2000)
+        return this.ram.load(address & 0x07ff);
 
-    // 0x2000 - 0x2007: PPU registers
-    // 0x2008 - 0x3FFF: Mirrors of 0x2000 - 0x2007 (repeats every 8 bytes)
+      // 0x2000 - 0x2007: PPU registers
+      // 0x2008 - 0x3FFF: Mirrors of 0x2000 - 0x2007 (repeats every 8 bytes)
 
-    if (address >= 0x2000 && address < 0x4000)
-      return this.ppu.loadRegister(address & 0x2007);
+      if (address >= 0x2000 && address < 0x4000)
+        return this.ppu.loadRegister(address & 0x2007);
 
-    // 0x4000 - 0x4017: APU, PPU and I/O registers
-    // 0x4018 - 0x401F: APU and I/O functionality that is normally disabled
+      // 0x4000 - 0x4017: APU, PPU and I/O registers
+      // 0x4018 - 0x401F: APU and I/O functionality that is normally disabled
 
-    if (address >= 0x4000 && address < 0x4014)
-      return this.apu.loadRegister(address);
+      if (address >= 0x4000 && address < 0x4014)
+        return this.apu.loadRegister(address);
 
-    if (address === 0x4014) return this.ppu.loadRegister(address);
+      if (address === 0x4014) return this.ppu.loadRegister(address);
 
-    if (address === 0x4015) return this.apu.loadRegister(address);
+      if (address === 0x4015) return this.apu.loadRegister(address);
 
-    if (address === 0x4016) return this.pad1.loadRegister();
+      if (address === 0x4016) return this.pad1.loadRegister();
 
-    if (address >= 0x4017 && address < 0x4020)
-      return this.apu.loadRegister(address);
+      if (address >= 0x4017 && address < 0x4020)
+        return this.apu.loadRegister(address);
 
-    // cartridge space
+      // cartridge space
 
-    if (address >= 0x4020 && address < 0x6000) return this.ram.load(address);
+      if (address >= 0x4020 && address < 0x6000) return this.ram.load(address);
 
-    // 0x6000 - 0x7FFF: Battery Backed Save or Work RAM
+      // 0x6000 - 0x7FFF: Battery Backed Save or Work RAM
 
-    if (address >= 0x6000 && address < 0x8000) return this.ram.load(address);
+      if (address >= 0x6000 && address < 0x8000) return this.ram.load(address);
 
-    // 0x8000 - 0xFFFF: ROM
-    if (address >= 0x8000 && address < 0x10000) return this.rom.load(address);
+      // 0x8000 - 0xFFFF: ROM
+      if (address >= 0x8000 && address < 0x10000) return this.rom.load(address);
+    } catch (e) {
+      console.error(`Load ${Utility.convertDecToHexString(address, 4)} : ${e}`);
+    }
   },
 
   /**
@@ -1304,6 +1308,7 @@ Object.assign(Cpu.prototype, {
    *
    */
   jumpToInterruptHandler: function (type) {
+    // console.log(`jumpToInterruptHandler with type: ${type}`);
     this.pc.store(this.load2Bytes(this.INTERRUPT_HANDLER_ADDRESSES[type]));
   },
 
@@ -1895,11 +1900,11 @@ Object.assign(Cpu.prototype, {
       default:
         throw new Error(
           'Cpu.operate: Invalid instruction, pc=' +
-            Utility.convertDecToHexString(this.pc.load() - 1) +
-            ' opc=' +
-            Utility.convertDecToHexString(opc, 2) +
-            ' name=' +
-            op.instruction.name,
+          Utility.convertDecToHexString(this.pc.load() - 1) +
+          ' opc=' +
+          Utility.convertDecToHexString(opc, 2) +
+          ' name=' +
+          op.instruction.name,
         );
         break;
     }
