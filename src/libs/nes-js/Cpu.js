@@ -1158,7 +1158,6 @@ Object.assign(Cpu.prototype, {
   load: function (address) {
     address = address & 0xffff; // just in case
     try {
-
       // 0x0000 - 0x07FF: 2KB internal RAM
       // 0x0800 - 0x1FFF: Mirrors of 0x0000 - 0x07FF (repeats every 0x800 bytes)
 
@@ -1900,11 +1899,11 @@ Object.assign(Cpu.prototype, {
       default:
         throw new Error(
           'Cpu.operate: Invalid instruction, pc=' +
-          Utility.convertDecToHexString(this.pc.load() - 1) +
-          ' opc=' +
-          Utility.convertDecToHexString(opc, 2) +
-          ' name=' +
-          op.instruction.name,
+            Utility.convertDecToHexString(this.pc.load() - 1) +
+            ' opc=' +
+            Utility.convertDecToHexString(opc, 2) +
+            ' name=' +
+            op.instruction.name,
         );
         break;
     }

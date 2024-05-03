@@ -17,6 +17,9 @@ const SideMenu = () => {
           <a href="/Game?q=nestest">Nes Test</a>
         </li>
         <li>
+          <a href="/Game?q=mguard">Mguard -Shooting-</a>
+        </li>
+        <li>
           <a href="/Game?q=bad_apple_2_5">Bad Apple v2.5</a>
         </li>
         {/* Add more game titles */}

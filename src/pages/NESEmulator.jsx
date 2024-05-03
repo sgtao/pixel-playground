@@ -16,7 +16,7 @@ const NESEmulator = ({ game = '' }) => {
     console.log(`msg:${str}`);
     const prevMessage = dumpMessage;
     setDumpMessage(prevMessage + str + '\n');
-    var area = document.getElementById('dump');
+    const area = document.getElementById('dump');
     // area.firstChild.appendData(str + '\n');
     area.scrollTop = area.scrollHeight;
   }
@@ -177,6 +177,7 @@ const NESEmulator = ({ game = '' }) => {
           <canvas id="gameCanvas" width="256" height="240"></canvas>
         </div>
         <div className="message-box">
+          <p>1P Control: cursor + B=z, A=x, Select=space, Start=enter</p>
           <p>message console:</p>
           <textarea
             id="dump"
