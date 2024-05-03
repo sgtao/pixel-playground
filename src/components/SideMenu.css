@@ -18,6 +18,8 @@ a:hover {
 }
 
 .side-menu h2 {
+  color: #ccc;
+  border-bottom: 1px solid #ccc;
   margin-bottom: 20px;
 }
 
