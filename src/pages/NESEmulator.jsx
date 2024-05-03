@@ -10,8 +10,29 @@ const NESEmulator = ({ game = '' }) => {
 
   return (
     <div className="nes-emulator">
-      <div className="emulator-screen">{/* NES emulator game screen */}</div>
-      <div className="emulator-controls">{/* NES emulator controls */}</div>
+      <header>
+        <h2>Game: {game}</h2>
+      </header>
+      <div className="column-line">
+        <button id="loadROMButton" onClick="window.loadRom()">
+          Power On
+        </button>
+        <button id="resetNESButton" disabled onClick="window.resetNes()">
+          Reset Nes
+        </button>
+      </div>
+      <div className="row-line">
+        <div id="dropzone">
+          <p>press PowerOn or drop nes file.</p>
+          <canvas id="gameCanvas" width="256" height="240"></canvas>
+        </div>
+        <div className="message-box">
+          <p>message console:</p>
+          <textarea id="dump" cols="96" rows="16">
+            {' '}
+          </textarea>
+        </div>
+      </div>
     </div>
   );
 };
