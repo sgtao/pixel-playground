@@ -11,10 +11,13 @@ const SideMenu = () => {
       <h2>Game Select</h2>
       <ul>
         <li>
-          <a href="/Game?q=bad_apple_2_5">Bad Apple v2.5</a>
+          <a href="/Game?q=hello">Hello World</a>
         </li>
         <li>
           <a href="/Game?q=nestest">Nes Test</a>
+        </li>
+        <li>
+          <a href="/Game?q=bad_apple_2_5">Bad Apple v2.5</a>
         </li>
         {/* Add more game titles */}
       </ul>
