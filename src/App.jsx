@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SideMenu from './components/SideMenu.jsx';
 import HomePage from './pages/HomePage.jsx';
 import NESEmulator from './pages/NESEmulator.jsx';
@@ -6,7 +7,6 @@ import './App.css';
 
 function App() {
   // const [count, setCount] = useState(0);
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [currentQuery, setCurrentQuery] = useState(
     new URLSearchParams(window.location.search).get('q'),
   );
@@ -23,15 +23,22 @@ function App() {
     };
   }, []);
 
+  // 次のサイトを参考にReact-Router-v6を実装
+  // https://ralacode.com/blog/post/how-to-use-react-router/ 
   return (
     <>
-      <div className="app-container">
-        <SideMenu />
-        <main className="pages">
-          {currentPath !== '/Game' && <HomePage />}
-          {currentPath === '/Game' && <NESEmulator game={currentQuery} />}
-        </main>
-      </div>
+      <BrowserRouter >
+        <div className="app-container">
+          <SideMenu />
+          <main className="pages">
+            <Routes>
+              <Route path={`/Home`} element={<HomePage />} />
+              <Route path={`/Game`} element={<NESEmulator game={currentQuery} />} />
+              <Route path={`/`} element={<HomePage />} />
+            </Routes>
+          </main>
+        </div>
+      </BrowserRouter>
     </>
   );
 }

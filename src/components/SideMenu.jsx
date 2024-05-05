@@ -1,26 +1,26 @@
-// SideMenu.jsx
 // components/SideMenu.jsx
+import { Link } from 'react-router-dom';
 import './SideMenu.css';
 
 const SideMenu = () => {
   return (
     <nav className="side-menu">
       <h2>
-        <a href="/Home">Home Page</a>
+        <Link to="/Home">Home Page</Link>
       </h2>
       <h2>Game Select</h2>
       <ul>
         <li>
-          <a href="/Game?q=hello">Hello World</a>
+          <Link to="/Game?q=hello">Hello World</Link>
         </li>
         <li>
-          <a href="/Game?q=nestest">Nes Test</a>
+          <Link to="/Game?q=nestest">Nes Test</Link>
         </li>
         <li>
-          <a href="/Game?q=mguard">Mguard -Shooting-</a>
+          <Link to="/Game?q=mguard">Mguard -Shooting-</Link>
         </li>
         <li>
-          <a href="/Game?q=bad_apple_2_5">Bad Apple v2.5</a>
+          <Link to="/Game?q=bad_apple_2_5">Bad Apple v2.5</Link>
         </li>
         {/* Add more game titles */}
       </ul>
